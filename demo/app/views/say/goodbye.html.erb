@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>See you Later!</title>
+  </head>
+  <body>
+    <h1>Goodbye!</h1>
+    <p>
+      It was nice having you here.
+    </p>
+    <!-- this method is weak due to dependency on link location -->
+    <p>
+      Say <a href="/say/hello">Hello</a>!
+    </p>
+    <!-- this is a better way to link pages -->
+    <p> 
+      Time to say
+      <%= link_to "Hello!", :action=> "hello" %>
+    </p>
+  </body>
+</html> 

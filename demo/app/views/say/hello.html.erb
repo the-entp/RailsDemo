@@ -25,6 +25,11 @@
       <!-- 'h' allows special characters to be displayed appropriately -->
       Email: <%= h("Ann & Bill <frazers@isp.email>") %>
     </p>
+    <p>
+      Say <a href="/say/goodbye">Goodbye</a>!
+      or even better, we can use link_to
+      <%= link_to "blah", :action => "goodbye" %>
+    </p>
     
   </body>
 </html>
