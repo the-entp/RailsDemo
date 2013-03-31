@@ -2,22 +2,23 @@
 
 <table>
   <tr>
-    <th> title</th>
+    <th>Title</th>
     <th>Description</th>
-    <th>Image url</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Image</th>
+    <th>Url</th>
   </tr>
 
 <% @products.each do |product| %>
   <tr>
-    <td><%= product. title %></td>
+    <td><%= product.title %></td>
     <td><%= product.description %></td>
     <td><%= product.image_url %></td>
     <td><%= link_to 'Show', product %></td>
     <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', product, 
+      :confirm => 'Are you sure?',
+      :method => :delete %>
+    </td>
   </tr>
 <% end %>
 </table>

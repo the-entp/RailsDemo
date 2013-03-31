@@ -1,17 +1,14 @@
 class Product < ActiveRecord::Base
-  default_scope :order => "title"
-  validates_presence_of :title, :description, :image_url
-  validates_numericality_of :price
-  validates_uniqueness_of :title
-  validates_format_of :image_url,
+#  default_scope :order => "title"
+
+  validates :title, :description, :image_url, :presence => true
+  validates :price, :numericality => {:greater_than_or_equal_to => 0.01}
+  validates :title, :uniqueness => true
+  validates :image_url, :format => {
   						:with => %r{\.(gif|jpg|png)$}i,
   						:message => 'must be a URL for GIF, JPG, or PNG image.'
-  validate :price_must_be_at_least_a_cent
+            }
+  validates :title, :length => {:minimum => 10, :too_short => "Your title must be longer than 9 characters"}
   attr_accessible :title, :description, :image_url, :price
 
-
-  protected
-  	def price_must_be_at_least_a_cent
-  		errors.add(:price, 'should be at least 0.01') if price.nil? || price < 0.01
-  	end
 end
