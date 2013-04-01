@@ -1,5 +1,8 @@
 class Product < ActiveRecord::Base
   default_scope :order => "title"
+  has_many :line_items
+  before_destroy :ensure_not_referenced_by_any_line_item
+  attr_accessible :title, :description, :image_url, :price
 
   validates :title, :description, :image_url, :presence => true
   validates :price, :numericality => {:greater_than_or_equal_to => 0.01}
@@ -9,6 +12,17 @@ class Product < ActiveRecord::Base
   						:message => 'must be a URL for GIF, JPG, or PNG image.'
             }
   validates :title, :length => {:minimum => 10, :too_short => "Your title must be longer than 9 characters"}
-  attr_accessible :title, :description, :image_url, :price
+
+
+  private
+    # ensure that there are no line items referencing this product
+    def ensure_not_referenced_by_any_line_item 
+      if line_items.empty?
+        return true 
+      else
+        errors.add(:base, 'Line Items present')
+        return false 
+      end
+    end
 
 end
